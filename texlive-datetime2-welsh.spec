@@ -1,41 +1,26 @@
-Name:		texlive-datetime2-welsh
-Version:	52553
-Release:	2
+%global tl_name datetime2-welsh
+%global tl_revision 52553
+
+Name:		texlive-%{tl_name}
+Epoch:		1
+Version:	1.1
+Release:	%{tl_revision}.1
 Summary:	Welsh language module for the datetime2 package
 Group:		Publishing
-URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/datetime2-welsh
+URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/datetime2-contrib/datetime2-welsh
 License:	lppl1.3
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/datetime2-welsh.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/datetime2-welsh.doc.r%{version}.tar.xz
-Source2:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/datetime2-welsh.source.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/datetime2-welsh.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/datetime2-welsh.doc.r%{tl_revision}.tar.xz
+Source2:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/datetime2-welsh.source.r%{tl_revision}.tar.xz
 BuildArch:	noarch
+BuildSystem:	texlive
 BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+%texlive_base_requires
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
 This module provides the "welsh" style that can be set using
-\DTMsetstyle provided by datetime2.sty. This package is
-currently unmaintained. Please see the README for the procedure
-to follow if you want to take over the maintenance.
+\DTMsetstyle provided by datetime2.sty. This package is currently
+unmaintained. Please see the README for the procedure to follow if you
+want to take over the maintenance.
 
-%prep
-%setup -c -a1 -a2
-%autopatch -p1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%doc %{_texmfdistdir}/source/latex/datetime2-welsh
-%{_texmfdistdir}/tex/latex/datetime2-welsh
-%doc %{_texmfdistdir}/doc/latex/datetime2-welsh
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
